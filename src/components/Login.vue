@@ -47,12 +47,14 @@ export default {
   },
   methods: {
     login () {
-      this.$refs.loginFormRef.validate(valid => {
+      this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        // this.$http.post('login', this.loginForm)
-        if (this.loginForm.username === 'admin' && this.loginForm.password === '123456') {
+        const { data: res } = await this.$http.post('login', this.loginForm)
+        // console.log(res)
+        if (res.meta.status === 200) {
           this.$message.success({ message: '登录成功', duration: 1000 })
-          window.sessionStorage.setItem('token', 'adesfintwering123456789')
+          // 登录成功后写入token
+          window.sessionStorage.setItem('token', res.data.token)
           this.$router.push('/home')
         } else {
           this.$message.error({ message: '登录失败', duration: 2000 })
