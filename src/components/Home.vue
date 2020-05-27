@@ -79,7 +79,7 @@ export default {
       // 在请求时若不需要传入参数而直接获取数据时则适用async==>await方式来直接获取数据
       // 获取数据成功后适用解构赋值的方式，把data属性重命名为res来进行接收
       const { data: res } = await this.$http.get('menus')
-      console.log(res)
+      // console.log(res)
       if (res.meta.status !== 200) {
         return this.$message.error(res.meta.msg)
       }
