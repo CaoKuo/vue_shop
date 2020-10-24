@@ -63,9 +63,11 @@ const router = new VueRouter({
 
 // 监听是否登录并产生了token进入的该网页
 router.beforeEach((to, from, next) => {
+  // 用户直接访问登录页时， 直接放行， 执行next()
   if (to.path === '/login') {
     return next()
   } else {
+    // 如果不是直接访问登录页 检查是否有token 若没有返回登录页 有直接放行
     const tokenStr = window.sessionStorage.getItem('token')
     if (!tokenStr) return next('/login')
     next()
